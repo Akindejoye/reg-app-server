@@ -35,3 +35,19 @@ export const getUser = async (req, res) => {
     res.status(500).json({ msg: error });
   }
 }
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { id: userId } = req.params;
+    const user = await User.findOneAndDelete({ _id: userId });
+
+    if (!user) {
+      return res.status(404).json({ msg: `No user with id: ${user}` });
+    }
+
+    res.status(200).json({ user: null, status: 'success' });
+
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+}
